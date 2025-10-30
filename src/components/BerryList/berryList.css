@@ -1,0 +1,58 @@
+:root {
+  --chip-spicy:  #ff6b6b;
+  --chip-sour:   #f7b500;
+  --chip-bitter: #8bc34a;
+  --chip-dry:    #00bcd4;
+  --chip-sweet:  #ff8ed1;
+
+  --list-border: rgba(2, 6, 23, 0.08);
+}
+
+.berryList {
+  display: grid;
+  gap: 10px;
+}
+
+.berryList__search {
+  margin-bottom: 6px;
+}
+
+.berryList__list {
+  border-radius: 12px;
+  background: var(--card, #fff);
+  padding: 4px;
+}
+
+.berryItem {
+  padding: 10px 12px;
+  border: 1px solid var(--list-border);
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.berryTags {
+  margin-right: 8px;
+}
+
+.berryItem__avatar {
+  background: #fff;
+  color: #0f172a;
+  border: 1px solid var(--list-border);
+}
+
+.berryItem__name {
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 0.15px;
+}
+
+.chip {
+  border-width: 1px;
+  background: #ffffff;
+}
+
+.chip--spicy  { border-color: var(--chip-spicy);  color: var(--chip-spicy);  }
+.chip--sour   { border-color: var(--chip-sour);   color: var(--chip-sour);   }
+.chip--bitter { border-color: var(--chip-bitter); color: var(--chip-bitter); }
+.chip--dry    { border-color: var(--chip-dry);    color: var(--chip-dry);    }
+.chip--sweet  { border-color: var(--chip-sweet);  color: var(--chip-sweet);  }
