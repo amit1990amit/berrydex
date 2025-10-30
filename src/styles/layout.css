@@ -1,7 +1,7 @@
 :root {
-  --bg: #f7f9fc;     /* light page background */
-  --card: #ffffff;   /* white card surface */
-  --muted: #667085;  /* soft gray text */
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --muted: #667085;
 }
 
 html,
@@ -10,7 +10,7 @@ body,
   height: 100%;
   margin: 0;
   background: var(--bg);
-  color: #0f172a; /* dark text on light bg */
+  color: #0f172a;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
     Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
 }
@@ -58,7 +58,6 @@ body,
 }
 
 .panel {
-  /* border: 1px solid rgba(2, 6, 23, 0.08); */
   border-radius: 12px;
   background: #ffffff;
   padding: 12px;
