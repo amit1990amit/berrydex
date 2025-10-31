@@ -1,71 +1,129 @@
-import React, { useMemo } from "react";
-import Slider from "@mui/material/Slider";
-import "./firmnessSlider.css";
+import React, { useMemo } from 'react';
+import { Box, Slider, Stack, Typography } from '@mui/material';
 
+  const levels = [
+    { label: 'Super Hard', key: "super-hard", count: 39, color: '#ff5c8a' },
+    { label: 'Very Hard', key: "very-hard", count: 0, color: '#e74c3c' },
+    { label: 'Hard', key: "hard",  count: 1, color: '#f39c12' },
+    { label: 'Soft',key: "soft",  count: 26, color: '#27ae60' },
+    { label: 'Very Soft',key: "very-soft", count: 12, color: '#2ecc71' },
+  ];
 
-const OPTIONS = [
-  { key: "super-hard", label: "Super Hard" },
-  { key: "very-hard",  label: "Very Hard"  },
-  { key: "hard",       label: "Hard"       },
-  { key: "soft",       label: "Soft"       },
-  { key: "very-soft",  label: "Very Soft"  },
-];
+export default function FirmnessSlider({ value , onChange, counts = {} }) {
 
-const FirmnessSlider = ({ value , onChange, counts = {} }) => {
   const idx = useMemo(() => {
-    const i = OPTIONS.findIndex(o => o.key === value);
-    return i === -1 ? 3 : i;
-  }, [value]);
+      const i = levels.findIndex(o => o.key === value);
+      return i === -1 ? 3 : i;
+    }, [value]);
+  
+  const sliderValue = (levels.length - 1) - idx;
+  const max = levels.length - 0.9;
+  const selected = levels[idx];
+  const marks = useMemo(() => levels.map((_, i) => ({ value: i })), [levels]);
 
-  const sliderValue = (OPTIONS.length - 1) - idx;
-  const marks = useMemo(
-    () => OPTIONS.map((_, i) => ({ value: (OPTIONS.length - 1) - i })),
-    []
-  );
-
-  const handleSliderChange = (_e, newValue) => {
-    const newIdx = (OPTIONS.length - 1) - Number(newValue);
-    const option = OPTIONS[newIdx];
+  const handleSliderChange = (e, newValue) => {
+    const newIdx = (levels.length - 1) - Number(newValue);
+    const option = levels[newIdx];
     if (option && onChange) onChange(option.key);
-  };
+  }
 
-  const handleClickLabel = (key) => onChange?.(key);
+  const handleClickLabel = (key) => {
+    onChange(key);
+  }
 
   return (
-    <div className={`firmness firmness--${value}`}>
-      <div className="firmness__slider">
+    <Box sx={{ p: 4, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: '24px 1fr',
+          alignItems: 'stretch',
+          columnGap: 2,
+          userSelect: 'none',
+        }}
+      >
+        {/* Vertical Slider */}
         <Slider
           orientation="vertical"
           min={0}
-          max={OPTIONS.length - 0.9}
+          max={max}
           step={1}
-          value={sliderValue} 
-          onChange={handleSliderChange}
           marks={marks}
-          aria-label="Firmness"
+          value={sliderValue}
+          onChange={handleSliderChange}
+          valueLabelDisplay="off"
+          sx={{
+            height: 340,
+            '& .MuiSlider-rail': {
+              width: 36,
+              height: 360,
+              bgcolor: 'grey.200',
+              opacity: 1,
+              borderRadius: 40,
+            },
+            '& .MuiSlider-track': {
+              display: 'none',
+              transition: 'transform 240ms cubic-bezier(0.2, 0, 0, 1), height 240ms cubic-bezier(0.2, 0, 0, 1)',
+            },
+            '& .MuiSlider-thumb': {
+              width: 26,
+              height: 26,
+              bgcolor: '#fff',
+              border: '4px solid',
+              borderColor: selected ?.color || 'primary.main',
+              boxShadow: 0,
+              transition:
+                'transform 240ms cubic-bezier(0.2, 0, 0, 1), border-color 140ms ease',
+              '&:hover, &.Mui-focusVisible': { boxShadow: 0 },
+            },
+            '& .MuiSlider-mark': {
+              width: 0,
+            },
+          }}
         />
-      </div>
 
-      <div className="firmness__labels">
-        {OPTIONS.map((o, i) => {
-          const active = i === idx;
-          return (
-            <div
-              key={o.key}
-              className={`firmnessItem ${active ? "is-active" : ""}`}
-              onClick={() => handleClickLabel(o.key)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && handleClickLabel(o.key)}
-            >
-              <div className="firmnessItem__label">{o.label}</div>
-              <div className="firmnessItem__count">{typeof counts[o.key] === "number" ? counts[o.key] : 0}</div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+        {/* Firmness Labels */}
+        <Stack height={340} justifyContent="space-between" sx={{ py: 0.5 }}>
+          {levels
+            .map((lvl, i) => {
+              const active = i === idx;
+              return (
+                <Box
+                  key={lvl.label}
+                  onClick={() => handleClickLabel(lvl.key)}
+                  sx={{
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: active ? 700 : 500,
+                      color: active ? lvl.color : 'text.primary',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {lvl.label}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: active ? lvl.color : 'text.secondary',
+                      fontWeight: active ? 700 : 400,
+                    }}
+                    title={`${counts[lvl.key]} items`}
+                  >
+                    {counts[lvl.key] || 0}
+                  </Typography>
+                </Box>
+              );
+            })
+            }
+        </Stack>
+      </Box>
+    </Box>
   );
-};
-
-export default FirmnessSlider;
+}
