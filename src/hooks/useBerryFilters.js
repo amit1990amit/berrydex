@@ -4,7 +4,12 @@ import debounce from "lodash.debounce";
 export function useBerryFilters(berries = []) {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [firmness, setFirmness] = useState(null);
+  const [firmness, _setFirmness] = useState(null);
+
+  const setFirmness = (e) => {
+    console.log("Setting firmness to:", e);
+    _setFirmness(e);
+  }
 
   const setDebouncedQueryDelayed = useMemo(
     () => debounce((val) => setDebouncedQuery(val), 500),

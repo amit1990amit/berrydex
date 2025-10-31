@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import BerryListItem from "./BerryListItem";
 import "./berryList.css";
 import Box from "@mui/material/Box";

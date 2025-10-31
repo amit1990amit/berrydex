@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import { Box, Slider, Stack, Typography } from '@mui/material';
 
   const levels = [
-    { label: 'Super Hard', key: "super-hard", count: 39, color: '#ff5c8a' },
-    { label: 'Very Hard', key: "very-hard", count: 0, color: '#e74c3c' },
-    { label: 'Hard', key: "hard",  count: 1, color: '#f39c12' },
-    { label: 'Soft',key: "soft",  count: 26, color: '#27ae60' },
-    { label: 'Very Soft',key: "very-soft", count: 12, color: '#2ecc71' },
+    { label: 'Super Hard', key: "super-hard", color: '#ff5c8a' },
+    { label: 'Very Hard', key: "very-hard", color: '#e74c3c' },
+    { label: 'Hard', key: "hard",  color: '#f39c12' },
+    { label: 'Soft',key: "soft",   color: '#27ae60' },
+    { label: 'Very Soft',key: "very-soft", color: '#2ecc71' },
   ];
 
 export default function FirmnessSlider({ value , onChange, counts = {} }) {
@@ -19,6 +19,7 @@ export default function FirmnessSlider({ value , onChange, counts = {} }) {
   const sliderValue = (levels.length - 1) - idx;
   const max = levels.length - 0.9;
   const selected = levels[idx];
+
   const marks = useMemo(() => levels.map((_, i) => ({ value: i })), [levels]);
 
   const handleSliderChange = (e, newValue) => {
@@ -42,7 +43,6 @@ export default function FirmnessSlider({ value , onChange, counts = {} }) {
           userSelect: 'none',
         }}
       >
-        {/* Vertical Slider */}
         <Slider
           orientation="vertical"
           min={0}
@@ -71,7 +71,11 @@ export default function FirmnessSlider({ value , onChange, counts = {} }) {
               bgcolor: '#fff',
               border: '4px solid',
               borderColor: selected ?.color || 'primary.main',
-              boxShadow: 0,
+              boxShadow: `
+                  0 2px 6px rgba(0,0,0,0.10),
+                  0 0 0 6px ${selected?.color}22,
+                  0 0 0 12px ${selected.color}11
+              !important`,
               transition:
                 'transform 240ms cubic-bezier(0.2, 0, 0, 1), border-color 140ms ease',
               '&:hover, &.Mui-focusVisible': { boxShadow: 0 },
@@ -81,8 +85,6 @@ export default function FirmnessSlider({ value , onChange, counts = {} }) {
             },
           }}
         />
-
-        {/* Firmness Labels */}
         <Stack height={340} justifyContent="space-between" sx={{ py: 0.5 }}>
           {levels
             .map((lvl, i) => {
