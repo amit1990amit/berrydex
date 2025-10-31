@@ -2,18 +2,7 @@ import React, { useMemo } from "react";
 import Slider from "@mui/material/Slider";
 import "./firmnessSlider.css";
 
-/**
- * FirmnessSlider (controlled)
- *
- * Props:
- *  - value: "super-hard" | "very-hard" | "hard" | "soft" | "very-soft"
- *  - onChange: (nextKey) => void
- *  - counts?: { [key in FirmnessKey]?: number } // optional counters per label
- *
- * Behavior:
- *  - Dragging the slider or clicking a label calls onChange with the selected key.
- *  - The active color changes based on the current value (CSS class).
- */
+
 const OPTIONS = [
   { key: "super-hard", label: "Super Hard" },
   { key: "very-hard",  label: "Very Hard"  },
@@ -21,12 +10,11 @@ const OPTIONS = [
   { key: "soft",       label: "Soft"       },
   { key: "very-soft",  label: "Very Soft"  },
 ];
-// ...same imports & OPTIONS...
 
 const FirmnessSlider = ({ value , onChange, counts = {} }) => {
   const idx = useMemo(() => {
     const i = OPTIONS.findIndex(o => o.key === value);
-    return i === -1 ? 3 : i; // default soft
+    return i === -1 ? 3 : i;
   }, [value]);
 
   const sliderValue = (OPTIONS.length - 1) - idx;
@@ -36,7 +24,6 @@ const FirmnessSlider = ({ value , onChange, counts = {} }) => {
   );
 
   const handleSliderChange = (_e, newValue) => {
-    console.log("Slider changed to:", newValue);
     const newIdx = (OPTIONS.length - 1) - Number(newValue);
     const option = OPTIONS[newIdx];
     if (option && onChange) onChange(option.key);
@@ -50,7 +37,7 @@ const FirmnessSlider = ({ value , onChange, counts = {} }) => {
         <Slider
           orientation="vertical"
           min={0}
-          max={OPTIONS.length - 1}
+          max={OPTIONS.length - 0.9}
           step={1}
           value={sliderValue} 
           onChange={handleSliderChange}

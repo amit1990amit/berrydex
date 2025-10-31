@@ -4,6 +4,7 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import BerryList from '../../components/BerryList/BerryList';
 import { useBerries } from '../../hooks/useBerries';
 import { useBerryFilters } from "../../hooks/useBerryFilters";
+import Ccc from '../../components/FirmnessSlider/Ccc';
 
 const MainPage = () => {
   const { data: berries = [], isLoading, isError, error } = useBerries();
@@ -25,7 +26,8 @@ const { query, onQueryChange, firmness, setFirmness, filtered, counts } =
         <div className="layout">
           <div className="panel">
             <div className="panel-title">Firmness</div>
-            <FirmnessSlider value={firmness} onChange={setFirmness} counts={counts}/>
+            {/* <FirmnessSlider value={firmness} onChange={setFirmness} counts={counts}/> */}
+            <Ccc value={firmness} onChange={setFirmness} counts={counts}/>
           </div>
           <div className="panel">
             <div className="panel-title">Berries</div>
