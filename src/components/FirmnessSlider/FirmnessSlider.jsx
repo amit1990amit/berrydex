@@ -9,7 +9,7 @@ import { Box, Slider, Stack, Typography } from '@mui/material';
     { label: 'Very Soft',key: "very-soft", color: '#2ecc71' },
   ];
 
-export default function FirmnessSlider({ value , onChange, counts = {} }) {
+const FirmnessSlider = ({ value , onChange, counts = {} }) => {
 
   const idx = useMemo(() => {
       const i = levels.findIndex(o => o.key === value);
@@ -129,3 +129,5 @@ export default function FirmnessSlider({ value , onChange, counts = {} }) {
     </Box>
   );
 }
+
+export default React.memo(FirmnessSlider);

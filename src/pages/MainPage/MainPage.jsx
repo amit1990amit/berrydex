@@ -8,8 +8,39 @@ import { useBerryFilters } from "../../hooks/useBerryFilters";
 
 const MainPage = () => {
   const { data: berries = [], isLoading, isError, error } = useBerries();
-const { query, onQueryChange, firmness, setFirmness, filtered, counts } =
+  const { query, onQueryChange, firmness, setFirmness, filtered, counts } =
   useBerryFilters(berries);
+
+  if (isLoading) {
+    return (
+      <div className="main-shell">
+        <div className="card">
+          <div className="card-header">
+            <div className="card-title">Poké Berries</div>
+            <div className="card-sub">Loading berries...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="main-shell">
+        <div className="card">
+          <div className="card-header">
+            <div className="card-title">Poké Berries</div>
+            <div className="card-sub" style={{ color: 'red' }}>
+              Failed to load berries 😢
+            </div>
+          </div>
+          <div style={{ padding: '1rem', color: 'red' }}>
+            {error?.message || 'Unknown error occurred'}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="main-shell">

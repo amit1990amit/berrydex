@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 
 
-
 const BerryList = ({ berries = [] }) => {
 
   return (

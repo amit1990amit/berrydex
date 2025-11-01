@@ -29,7 +29,11 @@ const BerryListItem = ({ berry }) => {
             }
           >
             <ListItemAvatar>
-              <Avatar className="berryItem__avatar">🍓</Avatar>
+              <Avatar
+                className="berryItem__avatar"
+                src="https://logowik.com/content/uploads/images/346_raspberry_pi_logo.jpg"
+                alt={berry.name}
+                />
             </ListItemAvatar>
             <ListItemText
               primary={berry.name}
@@ -39,4 +43,4 @@ const BerryListItem = ({ berry }) => {
   );
 };
 
-export default BerryListItem;
+export default React.memo(BerryListItem);
